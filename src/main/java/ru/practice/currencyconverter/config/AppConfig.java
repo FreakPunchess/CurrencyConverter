@@ -5,13 +5,21 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
 @PropertySource("classpath:URL.properties")
 public class AppConfig {
 
-    @Value("${url-template}")
-    private String urlTemplate;
+    @Value("${base-url}")
+    private String baseUrl;
+
+    @Value("${api-key}")
+    private String apiKey;
+
+    @Value("${req-param}")
+    private String reqParam;
+
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
@@ -20,6 +28,11 @@ public class AppConfig {
 
     @Bean
     public UrlHolder urlHolder() {
-        return new UrlHolder(urlTemplate);
+        return new UrlHolder(apiKey, reqParam);
+    }
+
+    @Bean
+    public WebClient client() {
+        return WebClient.create(baseUrl);
     }
 }
