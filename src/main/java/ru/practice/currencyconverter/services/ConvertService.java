@@ -20,11 +20,14 @@ public class ConvertService {
 
 
     public BigDecimal convert(Long sum, String fromCurrency, String toCurrency) throws JsonProcessingException {
-        final String uri = String.format(urlHolder.reqParam(), urlHolder.apiKey(), toCurrency, fromCurrency);
 
         String response = client
                 .get()
-                .uri(String.join("", "?", uri))
+                .uri(uriBuilder -> uriBuilder
+                .queryParam("apikey", "{userKey}")
+                .queryParam("currencies", "{toCurrency}")
+                .queryParam("base_currency", "{fromCurrency}")
+                .build(urlHolder.apiKey(), toCurrency, fromCurrency))
                 .retrieve()
                 .bodyToFlux(String.class)
                 .blockFirst();

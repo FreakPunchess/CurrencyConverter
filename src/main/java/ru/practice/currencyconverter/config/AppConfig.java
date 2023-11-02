@@ -17,10 +17,6 @@ public class AppConfig {
     @Value("${api-key}")
     private String apiKey;
 
-    @Value("${req-param}")
-    private String reqParam;
-
-
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
         return new PropertySourcesPlaceholderConfigurer();
@@ -28,7 +24,7 @@ public class AppConfig {
 
     @Bean
     public UrlHolder urlHolder() {
-        return new UrlHolder(apiKey, reqParam);
+        return new UrlHolder(apiKey);
     }
 
     @Bean

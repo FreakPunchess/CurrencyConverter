@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @RestController()
 public class ConvertController {
 
-    ConvertService service;
+    private ConvertService service;
 
     public ConvertController(ConvertService service) {
         this.service = service;
