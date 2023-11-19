@@ -17,6 +17,12 @@ public class AppConfig {
     @Value("${api-key}")
     private String apiKey;
 
+    @Value("${actual-currency}")
+    private String actualCurrency;
+
+    @Value("${base-currencies}")
+    private String baseCurrencies;
+
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
         return new PropertySourcesPlaceholderConfigurer();
@@ -24,7 +30,7 @@ public class AppConfig {
 
     @Bean
     public UrlHolder urlHolder() {
-        return new UrlHolder(apiKey);
+        return new UrlHolder(apiKey, actualCurrency, baseCurrencies);
     }
 
     @Bean
