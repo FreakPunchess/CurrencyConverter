@@ -1,0 +1,38 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: init_db
+      author: caramba90
+      changes:
+        - createTable:
+            tableName: courses
+            remarks: Курсы валют
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: course_pk
+                    nullable: false
+              - column:
+                  name: target_currency
+                  type: varchar(3)
+                  remarks: Тикер валюты, для которой указан курс
+                  constraints:
+                    unique: true
+                    uniqueConstraintName: target_currency_uq
+                    nullable: false
+              - column:
+                  name: available_currency
+                  type: varchar(3)
+                  remarks: Тикер валюты, в которой указан курс target_currency
+                  constraints:
+                    nullable: false
+              - column:
+                  name: course
+                  type: DOUBLE PRECISION
+                  remarks: Курс target_currency в available_currency
+                  constraints:
+                    nullable: false
